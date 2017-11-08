@@ -6,17 +6,24 @@
 // Update these with values suitable for your hardware/network.
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x42 };
 
+int vagas[13] = {};
+
 void callback(char* topic, byte* payload, unsigned int length) {
   char* mensagem = payload;
-  Serial.print("Mensagem: ");
-  Serial.print(int(mensagem));
-  Serial.println("");
+  int valorMensagem = String(mensagem[0]).toInt();
+
+  Serial.println(valorMensagem);
   
   String vaga = String(topic[5]);
   vaga += topic[6];
+
+  vagas[vaga.toInt()] = valorMensagem;
+
+  Serial.println(vagas[vaga.toInt()]);
   
   Serial.print("vaga: ");
   Serial.print(vaga.toInt());
+  
   Serial.println("");
 }
 
